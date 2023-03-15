@@ -2,7 +2,7 @@
 Instalador padrão para meus scripts, mas pode ser usado para seus projetos editando algumas variáveis
 # Modo de uso
 
-Execute-o na mesma pasta do script que quer instalar<br>
+Execute-o na mesma pasta do script que quer instalar o script ou programa.<br>
 Para usar basta digitar: ```bash Iinstaller [Nome_do_programa]``` <br>
 Ou: ```./Iinstaller [nome_script]``` (caso tenha dado permissão de execução)
 
