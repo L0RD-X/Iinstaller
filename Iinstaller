@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+#
+#----------------------------_
+# DEFAULT INSTALLER BY L0RD-X |
+#----------------------------~
+#
+#VARIAVEIS GLOBAIS
+termux="$HOME/../usr/etc/bash.bashrc"
+pc="$HOME/.bashrc"
+pasta="$HOME/.lord/"
+neopath="PATH=$PATH:$pasta"
+file=$1
+
+
+
+GetOS() {
+    if [ -f $termux ] ; then
+        findlord="$(grep "$neopath" $termux)"
+        if [ "$findlord" != $neopath ] ; then
+            echo $neopath >> $termux
+        fi
+    elif [ -f $pc ] ; then
+        findlord="$(grep -i "$neopath" $pc)"
+        if [ $findlord != $neopath ] ; then
+            echo $neopath >> $pc
+        fi
+    fi
+}
+
+Tem() {
+    if [ -d "$pasta" ] ; then
+        echo "True"
+    else
+        echo "False"
+    fi
+}
+MoveExec() {
+    chmod 555 $file
+    mv $file $pasta
+}
+
+GO() {
+    GetOS
+    runner="$( Tem )"
+
+    if [ "$runner" == "False" ] ; then
+        echo "Pasta padrão não encontrada!"
+        echo "criando..."
+
+        mkdir "$pasta"
+        echo "Pasta criada com Sucesso!"
+        MoveExec
+        echo "$1 instalado com sucesso!"
+        echo "Use $file para executar"
+
+    else
+        echo "Pasta padrão encontrada!"
+        MoveExec
+        echo "$1 instalado com sucesso!"
+        echo "Use $file para executar"
+    fi
+}
+
+setnow() {
+    sleep 2
+    clear
+    if [ -f $termux ] ; then
+        source $termux
+    elif [ -f $pc ] ; then
+        source $pc
+    fi
+}
+verify_args() {
+    if [ ! -z $1 ] ; then
+        echo "Digite o nome do programa que deseja instalar"
+    else
+        echo "Inicializando instalação do $1..."
+        sleep 1.5
+        GO
+        setnow
+    fi
+}
+
+verify_args
